@@ -1,17 +1,14 @@
 from flask import Flask, request
+from main import insertDados
+app = Flask("Dados")
 
-app = Flask("Youtube")
-
-@app.route("/olamundo", methods=["GET"])
-def olaMundo():
-    return{"Olá" :"Mundo"}
-    
-@app.route("/cadastra/usuario", methods=["POST"])
-def cadastraUsuario():
+@app.route("/cadastra", methods=["POST"])
+def cadastraDados():
 
     body = request.get_json()
-    print(body)
+    dados = insertDados(body["resolution"],body["issue_summary_id"], 
+                            body["family_id"],body["system_id"], body["region_code"])
 
-    return body
+    return dados
 
 app.run()
